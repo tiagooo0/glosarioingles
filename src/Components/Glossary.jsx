@@ -98,31 +98,48 @@ const Glossary = () => {
 
           {/* Formulario para añadir nueva palabra */}
           <div className="flex flex-col sm:flex-row gap-4 mb-6">
-            <input
-              type="text"
-              placeholder="Enter a new word"
-              value={newWord}
-              onChange={handleNewWordChange}
-              className="flex-grow p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
-            />
-            <input
-              type="text"
-              placeholder="Enter translation"
-              value={newTranslation}
-              onChange={handleNewTranslationChange}
-              className="flex-grow p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
-            />
-            <input
-              type="text"
-              placeholder="Enter meaning"
-              value={newMeaning}
-              onChange={handleNewMeaningChange}
-              className="flex-grow p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
-            />
+            <div className="flex-grow">
+              <input
+                type="text"
+                placeholder="Enter a new word"
+                value={newWord}
+                onChange={handleNewWordChange}
+                className="w-full p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
+              />
+            </div>
+            <div className="flex-grow">
+              <input
+                type="text"
+                placeholder="Enter translation"
+                value={newTranslation}
+                onChange={handleNewTranslationChange}
+                className="w-full p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
+              />
+            </div>
+            <div className="flex-grow">
+              <input
+                type="text"
+                placeholder="Enter meaning"
+                value={newMeaning}
+                onChange={handleNewMeaningChange}
+                className="w-full p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
+              />
+            </div>
+          </div>
+
+          <div className="flex flex-wrap gap-4 mb-6">
+            <select
+              value={newLanguage}
+              onChange={handleLanguageChange}
+              className="w-full sm:w-auto p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
+            >
+              <option value="english">English</option>
+              <option value="spanish">Spanish</option>
+            </select>
             <button
               onClick={addNewWord}
               disabled={loading}
-              className={`px-6 py-3 font-medium text-white rounded-xl shadow-sm ${
+              className={`w-full sm:w-auto px-6 py-3 font-medium text-white rounded-xl shadow-sm ${
                 loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-600 hover:bg-gray-700'
               }`}
             >
