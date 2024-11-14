@@ -36,7 +36,6 @@ const Glossary = () => {
     setNewLanguage(event.target.value);
   };
 
-  // Añadir nueva palabra y su traducción al glosario
   const addNewWord = () => {
     if (newWord.trim() !== '' && newTranslation.trim() !== '') {
       setLoading(true);
@@ -59,7 +58,7 @@ const Glossary = () => {
 
   return (
     <div className={`${isDarkMode ? 'dark' : ''}`}>
-      <div className="min-h-screen bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-white p-6">
+      <div className="min-h-screen bg-gray-50 dark:bg-gray-800 text-gray-800 dark:text-white p-4 sm:p-6">
         {/* Toggle Dark Mode */}
         <div className="flex justify-end mb-4">
           <button
@@ -70,8 +69,10 @@ const Glossary = () => {
           </button>
         </div>
 
-        <div className="max-w-3xl mx-auto bg-white dark:bg-gray-700 rounded-2xl shadow-lg p-8">
-          <h1 className="text-3xl font-semibold text-center text-gray-800 dark:text-white mb-6">Glossary (English/Spanish)</h1>
+        <div className="max-w-3xl mx-auto bg-white dark:bg-gray-700 rounded-2xl shadow-lg p-6 sm:p-8">
+          <h1 className="text-2xl sm:text-3xl font-semibold text-center text-gray-800 dark:text-white mb-6">
+            Glossary (English/Spanish)
+          </h1>
 
           {/* Campo de búsqueda */}
           <div className="mb-6">
@@ -80,30 +81,30 @@ const Glossary = () => {
               placeholder="Search term..."
               value={searchTerm}
               onChange={handleSearch}
-              className="w-full p-4 mb-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
+              className="w-full p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
             />
           </div>
 
           {/* Formulario para añadir nueva palabra */}
-          <div className="flex gap-4 mb-6">
+          <div className="flex flex-col sm:flex-row gap-4 mb-6">
             <input
               type="text"
               placeholder="Enter a new word"
               value={newWord}
               onChange={handleNewWordChange}
-              className="flex-grow p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
+              className="flex-grow p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
             />
             <input
               type="text"
               placeholder="Enter translation"
               value={newTranslation}
               onChange={handleNewTranslationChange}
-              className="flex-grow p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
+              className="flex-grow p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
             />
             <select
               value={newLanguage}
               onChange={handleLanguageChange}
-              className="p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
+              className="p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
             >
               <option value="english">English</option>
               <option value="spanish">Spanish</option>
@@ -111,7 +112,9 @@ const Glossary = () => {
             <button
               onClick={addNewWord}
               disabled={loading}
-              className={`px-6 py-3 font-medium text-white rounded-xl shadow-sm ${loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-600 hover:bg-gray-700'}`}
+              className={`px-6 py-3 font-medium text-white rounded-xl shadow-sm ${
+                loading ? 'bg-gray-400 cursor-not-allowed' : 'bg-gray-600 hover:bg-gray-700'
+              }`}
             >
               {loading ? 'Adding...' : 'Add Word'}
             </button>
@@ -128,7 +131,10 @@ const Glossary = () => {
               </thead>
               <tbody>
                 {filteredGlossary.map((term, index) => (
-                  <tr key={index} className="border-t border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-200">
+                  <tr
+                    key={index}
+                    className="border-t border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 transition duration-200"
+                  >
                     <td className="py-4 px-6">{term.english}</td>
                     <td className="py-4 px-6">{term.spanish}</td>
                   </tr>
