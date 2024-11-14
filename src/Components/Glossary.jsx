@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 
-// Datos iniciales del glosario
+// Datos iniciales del glosario con términos básicos de JavaScript
 const initialGlossaryData = [
-  { english: 'Hello', spanish: 'Hola' },
-  { english: 'Goodbye', spanish: 'Adiós' },
-  { english: 'Please', spanish: 'Por favor' },
-  { english: 'Thank you', spanish: 'Gracias' },
-  { english: 'Yes', spanish: 'Sí' },
-  { english: 'No', spanish: 'No' },
-  { english: 'Excuse me', spanish: 'Perdón' },
+  { english: 'Variable', spanish: 'Variable', meaning: 'Espacio para almacenar datos', language: 'JavaScript' },
+  { english: 'Function', spanish: 'Función', meaning: 'Bloque de código que realiza una tarea', language: 'JavaScript' },
+  { english: 'Array', spanish: 'Arreglo', meaning: 'Estructura de datos que almacena múltiples valores', language: 'JavaScript' },
+  { english: 'Loop', spanish: 'Bucle', meaning: 'Estructura que repite un bloque de código', language: 'JavaScript' },
+  { english: 'Object', spanish: 'Objeto', meaning: 'Colección de pares clave-valor', language: 'JavaScript' },
+  { english: 'Boolean', spanish: 'Booleano', meaning: 'Tipo de dato con dos valores: verdadero o falso', language: 'JavaScript' },
+  { english: 'String', spanish: 'Cadena de texto', meaning: 'Secuencia de caracteres', language: 'JavaScript' },
+  { english: 'Class', spanish: 'Clase', meaning: 'Plantilla para crear objetos', language: 'JavaScript' },
+  { english: 'Return', spanish: 'Retorno', meaning: 'Devuelve un valor de una función', language: 'JavaScript' },
+  { english: 'If', spanish: 'Si', meaning: 'Condicional para ejecutar código según una condición', language: 'JavaScript' },
 ];
 
 const Glossary = () => {
@@ -16,6 +19,7 @@ const Glossary = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [newWord, setNewWord] = useState('');
   const [newTranslation, setNewTranslation] = useState('');
+  const [newMeaning, setNewMeaning] = useState('');
   const [newLanguage, setNewLanguage] = useState('english');
   const [loading, setLoading] = useState(false);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -32,28 +36,35 @@ const Glossary = () => {
     setNewTranslation(event.target.value);
   };
 
+  const handleNewMeaningChange = (event) => {
+    setNewMeaning(event.target.value);
+  };
+
   const handleLanguageChange = (event) => {
     setNewLanguage(event.target.value);
   };
 
+  // Añadir nueva palabra al glosario
   const addNewWord = () => {
-    if (newWord.trim() !== '' && newTranslation.trim() !== '') {
+    if (newWord.trim() && newTranslation.trim() && newMeaning.trim()) {
       setLoading(true);
       const newEntry =
         newLanguage === 'english'
-          ? { english: newWord, spanish: newTranslation }
-          : { english: newTranslation, spanish: newWord };
+          ? { english: newWord, spanish: newTranslation, meaning: newMeaning, language: 'JavaScript' }
+          : { english: newTranslation, spanish: newWord, meaning: newMeaning, language: 'JavaScript' };
 
       setGlossaryData([...glossaryData, newEntry]);
       setNewWord('');
       setNewTranslation('');
+      setNewMeaning('');
       setLoading(false);
     }
   };
 
   const filteredGlossary = glossaryData.filter((term) =>
     term.english.toLowerCase().includes(searchTerm) ||
-    term.spanish.toLowerCase().includes(searchTerm)
+    term.spanish.toLowerCase().includes(searchTerm) ||
+    term.meaning.toLowerCase().includes(searchTerm)
   );
 
   return (
@@ -71,7 +82,7 @@ const Glossary = () => {
 
         <div className="max-w-3xl mx-auto bg-white dark:bg-gray-700 rounded-2xl shadow-lg p-6 sm:p-8">
           <h1 className="text-2xl sm:text-3xl font-semibold text-center text-gray-800 dark:text-white mb-6">
-            Glossary (English/Spanish)
+            Glossary (JavaScript Basics)
           </h1>
 
           {/* Campo de búsqueda */}
@@ -101,14 +112,13 @@ const Glossary = () => {
               onChange={handleNewTranslationChange}
               className="flex-grow p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
             />
-            <select
-              value={newLanguage}
-              onChange={handleLanguageChange}
-              className="p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
-            >
-              <option value="english">English</option>
-              <option value="spanish">Spanish</option>
-            </select>
+            <input
+              type="text"
+              placeholder="Enter meaning"
+              value={newMeaning}
+              onChange={handleNewMeaningChange}
+              className="flex-grow p-3 sm:p-4 border border-gray-300 dark:border-gray-600 rounded-xl shadow-sm bg-white dark:bg-gray-600 text-gray-800 dark:text-white focus:ring-2 focus:ring-gray-400 outline-none transition ease-in-out"
+            />
             <button
               onClick={addNewWord}
               disabled={loading}
@@ -127,6 +137,8 @@ const Glossary = () => {
                 <tr className="bg-gray-200 dark:bg-gray-600 text-gray-800 dark:text-white">
                   <th className="py-3 px-6 text-left text-lg">English</th>
                   <th className="py-3 px-6 text-left text-lg">Spanish</th>
+                  <th className="py-3 px-6 text-left text-lg">Meaning</th>
+                  <th className="py-3 px-6 text-left text-lg">Language</th>
                 </tr>
               </thead>
               <tbody>
@@ -137,6 +149,8 @@ const Glossary = () => {
                   >
                     <td className="py-4 px-6">{term.english}</td>
                     <td className="py-4 px-6">{term.spanish}</td>
+                    <td className="py-4 px-6">{term.meaning}</td>
+                    <td className="py-4 px-6">{term.language}</td>
                   </tr>
                 ))}
               </tbody>
